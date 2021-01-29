@@ -7,12 +7,8 @@ using namespace std;
 vector<int> toSumOfOddNumbers(int N) {
     vector<int> res;
     if (N % 2 == 0) {
-        int count = 0;
-        while (N % 2 == 0) {
-            count++;
-            N /= 2;
-        }
-        res = vector<int>(++count, N);
+        res.push_back(N - 1);
+        res.push_back(1);
     } else {
         res.push_back(N);
     }
@@ -55,10 +51,17 @@ int main() {
 //    cout << ++aChar << endl;
 //    cout << ++aChar << endl;
 
-    cout << solution(15) << endl;
-    cout << solution(111) << endl;
-    cout << solution(110) << endl;
-    cout << solution(242) << endl;
-    
+    cout << solution(15) << " | " <<  solution(15).size() << endl;
+    cout << solution(111) << " | " << solution(111).size() << endl;
+    cout << solution(110) << " | " << solution(110).size() << endl;
+    cout << solution(242) << " | " << solution(242).size() << endl;
+
+    cout << solution(2) << " | " << solution(2).size() << endl;
+    cout << solution(4) << " | " << solution(4).size() << endl;
+    cout << solution(8) << " | " << solution(8).size() << endl;
+    cout << solution(16) << " | " << solution(16).size() << endl;
+
+    cout << solution(12) << " | " << solution(12).size() << endl;
+
     return 0;
 }
