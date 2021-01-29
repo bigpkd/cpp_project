@@ -41,10 +41,5 @@ int main() {
 //    int arr[] = {2,6,4,6};      // 0 6 6
     vector<int> input (arr, arr + sizeof(arr) / sizeof(int));
     cout << solution(input) << endl;
-
-/*    int d = 1000000000 + 1000000000;
-    cout << INT_MAX << endl;
-    cout << LONG_LONG_MAX << endl;
-    cout << d << endl;*/
     return 0;
 }
