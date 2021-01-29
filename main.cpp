@@ -34,18 +34,31 @@ char randomLowerCaseChar() {
 string solution(int N) {
     string res = "";
     vector<int> sumOfNumbers = toSumOfOddNumbers(N);
+    char first = randomLowerCaseChar();
+    for (int number : sumOfNumbers) {
+        res.append(string(number, first));
+        ++first;
+        if (first == 'z' + 1) first = 'a';
+    }
+    return res;
 }
 
 int main() {
-//    std::cout << vectorToString(toSumOfOddNumbers(15)) << std::endl;
-//    std::cout << vectorToString(toSumOfOddNumbers(111)) << std::endl;
-//    std::cout << vectorToString(toSumOfOddNumbers(110)) << std::endl;
-//    std::cout << vectorToString(toSumOfOddNumbers(242)) << std::endl;
+//    cout << vectorToString(toSumOfOddNumbers(15)) << endl;
+//    cout << vectorToString(toSumOfOddNumbers(111)) << endl;
+//    cout << vectorToString(toSumOfOddNumbers(110)) << endl;
+//    cout << vectorToString(toSumOfOddNumbers(242)) << endl;
 
-    char aChar = randomLowerCaseChar();
-    std::cout << aChar << std::endl;
-    std::cout << ++aChar << std::endl;
-    std::cout << ++aChar << std::endl;
-    std::cout << ++aChar << std::endl;
+//    char aChar = randomLowerCaseChar();
+//    cout << aChar << endl;
+//    cout << ++aChar << endl;
+//    cout << ++aChar << endl;
+//    cout << ++aChar << endl;
+
+    cout << solution(15) << endl;
+    cout << solution(111) << endl;
+    cout << solution(110) << endl;
+    cout << solution(242) << endl;
+    
     return 0;
 }
