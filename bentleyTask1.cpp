@@ -1,3 +1,5 @@
+/** Find a string of a given length such that each letter occurs an odd number of times
+ */
 #include <iostream>
 #include <vector>
 #include <string>
