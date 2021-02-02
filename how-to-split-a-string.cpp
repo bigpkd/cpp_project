@@ -25,7 +25,7 @@ std::vector<std::string> solution1_1(const std::string& text) { // Using iterato
     // - it can be improved in terms of performance (but until your profiling hasn’t proved this is your bottleneck, this is not a real issue),
     std::istringstream iss(text);
     return std::vector<std::string>(std::istream_iterator<std::string>{iss},
-                                            std::istream_iterator<std::string>());
+                                    std::istream_iterator<std::string>());
 }
 
 std::vector<std::string> solution1_3(const std::string& text, char delimiter) { // stepping away from the iterators
