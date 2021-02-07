@@ -22,6 +22,6 @@ int main() {
 2. PermMissingElem : Find the missing element in a given permutation.
 Task Score : 100%
 Correctness : 100%
-Performance : 100%
+Performance : 100%  O(N) or O(N * log(N))
 Task description : https://app.codility.com/programmers/lessons/3-time_complexity/perm_missing_elem/
  */
