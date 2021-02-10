@@ -1,45 +1,31 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <numeric>
-#include <climits>
 
 using namespace std;
 
-template<typename T>
-void display(const T &smth) {
-    cout << smth << endl;
+void display() { cout << endl; }
+
+template<typename T, typename... Ts>
+void display(T smth, Ts... smths) {
+    cout << smth << " ";
+    display(smths...);
 }
 
-template<typename T>
-void displayVector(const std::vector<T> vector) {
-    for (const auto &it : vector) {
-        cout << it << " ; ";
-    }
-    cout << endl;
-}
-
-int solution(int X, vector<int> &A) {
-    auto it = find(A.begin(), A.end(), X);
-    if (it == A.end()) {
-        return -1;
-    } else {
-        return vector<int>(A.begin(), it).size();
-    }
+vector<int> solution(string &S, vector<int> &P, vector<int> &Q) {
+    vector<int> res;
+    return res;
 }
 
 int main() {
-    int x = 5;
-    double myInts[]{1, 3, 1, 4, 2, 3, 5, 4};
-    vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
-    display(solution(x, v));
+    int myInts[]{2, 5, 0};
+    int myInts1[]{4, 5, 6};
 
     return 0;
 }
-/** Lesson 4
-1. TapeEquilibrium : Minimize the value |(A[0] + ... + A[P-1]) - (A[P] + ... + A[N-1])|.
-Task Score : 84%
-Correctness : 71%
-Performance : 100%
-Task description : https://app.codility.com/programmers/lessons/3-time_complexity/tape_equilibrium/
+/** Lesson 5
+1. GenomicRangeQuery : Find the minimal nucleotide from a range of sequence DNA.
+Task Score : 100%
+Correctness : 100%
+Performance : 100%  O(1)
+Task description : https://app.codility.com/programmers/lessons/5-prefix_sums/genomic_range_query/
  */
