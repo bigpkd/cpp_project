@@ -29,7 +29,9 @@ vector<int> solution(int N, vector<int> &A) {
             } else {
                 ++counters.at(index);
             }
-            highestCounter = max(highestCounter, counters.at(index));
+            if (highestCounter < counters.at(index)) {
+                highestCounter = counters.at(index);
+            }
         } else if (counterNumber == N + 1) {
             lastUpdate = highestCounter;
         }
@@ -50,7 +52,7 @@ int main() {
     return 0;
 }
 /** Lesson 4
-2. MaxCounters : Calculate the values of counters after applying all alternating operations: increase counter by 1; set value of all counters to current maximum. .
+2. MaxCounters : Calculate the values of counters after applying all alternating operations: increase counter by 1; set value of all counters to current maximum.
 Task Score : 100%
 Correctness : 100%
 Performance : 100%  O(N + M)
