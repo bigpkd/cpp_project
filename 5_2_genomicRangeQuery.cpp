@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <string>
 
 using namespace std;
 
@@ -68,7 +67,7 @@ int main() {
     return 0;
 }
 /** Lesson 5
-1. GenomicRangeQuery : Find the minimal nucleotide from a range of sequence DNA.
+2. GenomicRangeQuery : Find the minimal nucleotide from a range of sequence DNA.
 Task Score : 100%
 Correctness : 100%
 Performance : 100%  O(N + M)
