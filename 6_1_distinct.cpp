@@ -25,7 +25,7 @@ int main() {
     return 0;
 }
 /** Lesson 6
-3. Distinct : Compute number of distinct values in an array.
+1. Distinct : Compute number of distinct values in an array.
 Task Score : 100%
 Correctness : 100%
 Performance : 100%  O(N*log(N)) or O(N) 
