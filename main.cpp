@@ -29,29 +29,13 @@ void displayMap(std::map<T, U> map) {
 }
 
 int solution(vector<int> &A) {
-    int minAvgPos(0);
+    int pairsOfPassingCars(-1);
 
-    double minAvgValue((A.at(0) + A.at(1)) / 2.0);
-    for (int i = 0; i < A.size() - 2; ++i) {
-        if ((A.at(i) + A.at(i + 1)) / 2.0 < minAvgValue) {
-            minAvgValue = (A.at(i) + A.at(i + 1)) / 2.0;
-            minAvgPos = i;
-        }
-        if ((A.at(i) + A.at(i + 1) + A.at(i + 2)) / 3.0 < minAvgValue) {
-            minAvgValue = (A.at(i) + A.at(i + 1) + A.at(i + 2)) / 3.0;
-            minAvgPos = i;
-        }
-    }
-    if (A.size() > 2 && (A.at(A.size() - 3) + A.at(A.size() - 2)) / 2.0 < minAvgValue) {
-        minAvgValue = (A.at(A.size() - 3) + A.at(A.size() - 2)) / 2.0;
-        minAvgPos = A.size() - 3;
-    }
-
-    return minAvgPos;
+    return pairsOfPassingCars;
 }
 
 int main() {
-    int myInts[]{4,2,2,5,1,5,8};
+    int myInts[]{0, 1, 0, 1, 1};
     int myInts1[]{2, 2};
     int myInts2[]{2, 5};
     int myInts3[]{2, 2, 5, 1};
@@ -68,9 +52,9 @@ int main() {
     return 0;
 }
 /** Lesson 5
-3. MinAvgTwoSlice : Find the minimal average of any slice containing at least two elements.
+3. PassingCars : Count the number of passing cars on the road.
 Task Score : %
 Correctness : %
-Performance : 100%  O(N + M)
-Task description : https://app.codility.com/programmers/lessons/5-prefix_sums/min_avg_two_slice/
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/5-prefix_sums/passing_cars/
  */
