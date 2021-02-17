@@ -17,11 +17,11 @@ int solution(vector<int> &A) {
     sort(A.begin(), A.end());
     set<int> potentialMaxProductsOfThree;
     size_t positionsOfExtremes[]{0, 1, 2, A.size() - 3, A.size() - 2, A.size() - 1};
-    set<size_t> range(positionsOfExtremes, positionsOfExtremes + sizeof(positionsOfExtremes) / sizeof(size_t));
-    for (size_t i : range) {
-        for (size_t j : range) {
+    set<size_t> positions(positionsOfExtremes, positionsOfExtremes + sizeof(positionsOfExtremes) / sizeof(size_t));
+    for (size_t i : positions) {
+        for (size_t j : positions) {
             if (i == j) continue;
-            for (size_t k : range) {
+            for (size_t k : positions) {
                 if (i == k || j == k) continue;
                 potentialMaxProductsOfThree.emplace(A.at(i) * A.at(j) * A.at(k));
             }
