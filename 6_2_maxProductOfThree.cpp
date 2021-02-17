@@ -17,7 +17,7 @@ int solution(vector<int> &A) {
     sort(A.begin(), A.end());
     set<int> potentialMaxProductsOfThree;
     size_t positionsOfExtremes[]{0, 1, 2, A.size() - 3, A.size() - 2, A.size() - 1};
-    vector<size_t> range(positionsOfExtremes, positionsOfExtremes + sizeof(positionsOfExtremes) / sizeof(size_t));
+    set<size_t> range(positionsOfExtremes, positionsOfExtremes + sizeof(positionsOfExtremes) / sizeof(size_t));
     for (size_t i : range) {
         for (size_t j : range) {
             if (i == j) continue;
@@ -31,10 +31,10 @@ int solution(vector<int> &A) {
 }
 
 int main() {
-    int myInts[]{-5, 5, -5, 4};    // 125
-    int myInts1[]{-1, 1, 3, -5, -4};    // 60
-    int myInts2[]{6, 5, 5, 6, 2, 2};   // 180
-    int myInts3[]{-3, 1, 2, -2, 5, 6};    // 60
+    int myInts[]{-3, 1, 2, -2, 5, 6};   // 60
+    int myInts1[]{-5, 5, -5, 4};    // 125
+    int myInts2[]{-1, -1, -3, -5, 0};    // 0
+    int myInts3[]{-3, -1, -2, -2, -5, -6};    // -4
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
