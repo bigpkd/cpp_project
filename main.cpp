@@ -31,43 +31,54 @@ void displayMap(std::map<T, U> map) {
 }
 
 int solution(vector<int> &A) {
-    sort(A.begin(), A.end());
-    set<int> potentialMaxProductsOfThree;
-    size_t positionsOfExtremes[]{0, 1, 2, A.size() - 3, A.size() - 2, A.size() - 1};
-    set<size_t> range(positionsOfExtremes, positionsOfExtremes + sizeof(positionsOfExtremes) / sizeof(size_t));
-    for (size_t i : range) {
-        for (size_t j : range) {
-            if (i == j) continue;
-            for (size_t k : range) {
-                if (i == k || j == k) continue;
-                potentialMaxProductsOfThree.emplace(A.at(i) * A.at(j) * A.at(k));
-            }
-        }
-    }
-    return *potentialMaxProductsOfThree.rbegin();
+    const int INTERSECTING_PAIRS_LIMIT = 10000000;
+
+    return 1;
+}
+
+double inter(int center1, int radius1, int center2, int radius2) {
+    double num = radius2*radius2 - radius1*radius1 - center2*center2 + center1*center1;
+    double denom = 2 * ( center1*center1 - center2*center2 );
+    return num / denom;
 }
 
 int main() {
-    int myInts[]{-3, 1, 2, -2, 5, 6};   // 60
-    int myInts1[]{-5, 5, -5, 4};    // 125
-    int myInts2[]{-1, -1, -3, -5, 0};    // 0
-    int myInts3[]{-3, -1, -2, -2, -5, -6};    // -4
+    int myInts[]{1, 5, 2, 1, 4, 0};   // 11
+    int myInts1[]{5, 5, 5, 4};    //
+    int myInts2[]{1, 1, 3, 5, 0};    //
+    int myInts3[]{3, 1, 2, 2, 5, 6};    //
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
     vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-    display(solution(v));
-    display(solution(v1));
-    display(solution(v2));
-    display(solution(v3));
+//    display(solution(v));
+//    display(solution(v1));
+//    display(solution(v2));
+//    display(solution(v3));
+
+    display(inter(0,1, 1,5));   // inclusion
+    display(inter(0,1, 2,2));
+    display(inter(0,1, 3,1));   // no
+    display(inter(0,1, 4,4));
+    display(inter(0,1, 5,0));   // no
+
+    display(inter(3,1, 0,1));   // no
+    display(inter(20,9, 0,2));   // no
+    display(inter(3,1, 0,1));   // no
+    display(inter(20,9, 0,2));   // no
+
+    display(inter(20,9, 19,1));   // no
+    display(inter(20,9, 15,2));   // no
+    display(inter(19,12,0,9));   // no
+    display(inter(15, 2, 20,9));   // no
 
     return 0;
 }
 /** Lesson 6
-2. MaxProductOfThree : Maximize A[P] * A[Q] * A[R] for any triplet (P, Q, R).
-Task Score : 100%
-Correctness : 100%
-Performance : 100%  O(N*log(N))
+3. NumberOfDiscIntersections : Compute the number of intersections in a sequence of discs.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
 Task description : https://app.codility.com/programmers/lessons/6-sorting/max_product_of_three/
  */
