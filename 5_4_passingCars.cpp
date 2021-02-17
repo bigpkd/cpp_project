@@ -12,10 +12,20 @@ void display(T smth, Ts... smths) {
     display(smths...);
 }
 
+/**
+ * Les variables suivantes doivent avoir ces types là précisément pour que la solution passe tous les tests
+ *      long pairsOfPassingCars
+ *      unsigned int eastCars
+ *      unsigned int westCars
+ * Voir les liens d'évaluation suivants :
+ * https://app.codility.com/demo/results/trainingB2CPYV-RCM/	90%
+ * https://app.codility.com/demo/results/training7KDXFU-MW5/	90%
+ * https://app.codility.com/demo/results/trainingR9EQBX-92Y/	100%
+ */
 int solution(vector<int> &A) {
     const int PASSING_CARS_LIMIT(1000000000);
-    long pairsOfPassingCars(0);             // Les trois variables suivantes doivent avoir ces types là précisément
-    unsigned int eastCars(0), westCars(0);  // pour passer tous les tests
+    long pairsOfPassingCars(0);
+    unsigned int eastCars(0), westCars(0);
     for (const int &direction : A) {
         if (direction == 1) {
             westCars++;
