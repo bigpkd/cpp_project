@@ -32,14 +32,37 @@ void displayMap(std::map<T, U> map) {
 
 int solution(vector<int> &A) {
     const int INTERSECTING_PAIRS_LIMIT = 10000000;
+    /*unsigned*/ int N = A.size();
+    int C[N];
+    int radius, intersectionsCount=0, t=0;
 
-    return 1;
-}
-
-double inter(int center1, int radius1, int center2, int radius2) {
-    double num = radius2*radius2 - radius1*radius1 - center2*center2 + center1*center1;
-    double denom = 2 * ( center1*center1 - center2*center2 );
-    return num / denom;
+    // Mark left and middle of disks
+    for (int center=0; center < N; center++) {
+        C[center] = -1;
+        radius = A[center];
+        if (radius >= center) {
+            C[0]++;
+        } else {
+            C[center - radius]++;
+        }
+    }
+    // Sum of left side of disks at location
+    for (int i=0; i<N; i++) {
+        t += C[i];
+        C[i] = t;
+    }
+    // Count pairs, right side only:
+    // 1. overlaps based on disk size
+    // 2. overlaps based on disks but not centers
+    for (int i=0; i<N; i++) {
+        radius = A[i];
+        intersectionsCount += radius < N - i ? radius : N - i - 1;
+        if (i != N-1) {
+            intersectionsCount += C[radius < N - i ? i + radius : N - 1];
+        }
+        if (intersectionsCount > INTERSECTING_PAIRS_LIMIT) return -1;
+    }
+    return intersectionsCount;
 }
 
 int main() {
@@ -57,22 +80,6 @@ int main() {
 //    display(solution(v2));
 //    display(solution(v3));
 
-    display(inter(0,1, 1,5));   // inclusion
-    display(inter(0,1, 2,2));
-    display(inter(0,1, 3,1));   // no
-    display(inter(0,1, 4,4));
-    display(inter(0,1, 5,0));   // no
-
-    display(inter(3,1, 0,1));   // no
-    display(inter(20,9, 0,2));   // no
-    display(inter(3,1, 0,1));   // no
-    display(inter(20,9, 0,2));   // no
-
-    display(inter(20,9, 19,1));   // no
-    display(inter(20,9, 15,2));   // no
-    display(inter(19,12,0,9));   // no
-    display(inter(15, 2, 20,9));   // no
-
     return 0;
 }
 /** Lesson 6
@@ -81,4 +88,6 @@ Task Score : %
 Correctness : %
 Performance : 100%  O()
 Task description : https://app.codility.com/programmers/lessons/6-sorting/max_product_of_three/
+
+ http://www.lucainvernizzi.net/blog/2014/11/21/codility-beta-challenge-number-of-disc-intersections/
  */
