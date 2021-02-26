@@ -31,52 +31,37 @@ void displayMap(std::map<T, U> map) {
 }
 
 int solution(vector<int> &A) {
-    const int INTERSECTING_PAIRS_LIMIT = 10000000;
-    /*unsigned*/ int N = A.size();
-    int C[N];
-    int radius, intersectionsCount=0, t=0;
-
-    // Mark left and middle of disks
-    for (int center=0; center < N; center++) {
-        C[center] = -1;
-        radius = A[center];
-        if (radius >= center) {
-            C[0]++;
-        } else {
-            C[center - radius]++;
+    int res(0);
+    if (A.size() >= 3) {
+        for (int i = 0; i < A.size() - 2; ++i) {
+            for (int j = i + 1; j < A.size() - 1; ++j) {
+                for (int k = j + 1; k < A.size(); ++k) {
+                    bool t1 = (long) A.at(i) + (long) A.at(j) > (long) A.at(k);
+                    bool t2 = (long) A.at(j) + (long) A.at(k) > (long) A.at(i);
+                    bool t3 = (long) A.at(k) + (long) A.at(i) > (long) A.at(j);
+                    if (t1 && t2 && t3) {
+                        res = 1;
+                        break;
+                    }
+                }
+            }
         }
     }
-    // Sum of left side of disks at location
-    for (int i=0; i<N; i++) {
-        t += C[i];
-        C[i] = t;
-    }
-    // Count pairs, right side only:
-    // 1. overlaps based on disk size
-    // 2. overlaps based on disks but not centers
-    for (int i=0; i<N; i++) {
-        radius = A[i];
-        intersectionsCount += radius < N - i ? radius : N - i - 1;
-        if (i != N-1) {
-            intersectionsCount += C[radius < N - i ? i + radius : N - 1];
-        }
-        if (intersectionsCount > INTERSECTING_PAIRS_LIMIT) return -1;
-    }
-    return intersectionsCount;
+    return res;
 }
 
 int main() {
-    int myInts[]{1, 5, 2, 1, 4, 0};   // 11
-    int myInts1[]{5, 5, 5, 4};    //
-    int myInts2[]{1, 1, 3, 5, 0};    //
-    int myInts3[]{3, 1, 2, 2, 5, 6};    //
+    int myInts[]{10, 2, 5, 1, 8, 20};   //
+    int myInts1[]{10, 50, 5, 1};    //
+//    int myInts2[]{1, 1, 3, 5, 0};    //
+//    int myInts3[]{3, 1, 2, 2, 5, 6};    //
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
-    vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
-    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
+//    vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
+//    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-//    display(solution(v));
-//    display(solution(v1));
+    display(solution(v));
+    display(solution(v1));
 //    display(solution(v2));
 //    display(solution(v3));
 
