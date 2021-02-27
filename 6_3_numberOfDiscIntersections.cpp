@@ -87,7 +87,7 @@ int main() {
 Task Score : %
 Correctness : %
 Performance : 100%  O()
-Task description : https://app.codility.com/programmers/lessons/6-sorting/max_product_of_three/
+Task description : https://app.codility.com/programmers/lessons/6-sorting/number_of_disc_intersections/
 
  http://www.lucainvernizzi.net/blog/2014/11/21/codility-beta-challenge-number-of-disc-intersections/
  */
