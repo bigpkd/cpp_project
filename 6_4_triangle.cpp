@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,36 +12,20 @@ void display(T smth, Ts... smths) {
     display(smths...);
 }
 
-template<typename T>
-void displayVector(const std::vector<T> vector) {
-    for (const auto &val : vector) {
-        cout << val << " ; ";
-    }
-    cout << endl;
-}
-
-template<typename T, typename U>
-void displayMap(std::map<T, U> map) {
-    for (const auto entry : map) {
-        cout << "(" << entry.first << " : " << entry.second << ") ";
-    }
-    cout << endl;
-}
-
+/** Description does not make it clear but the order between P, Q and R is only meant to indicate that those
+ *  indexes are different from each other. So the fact that A is sorted before we process it is not an issue
+ *  https://stackoverflow.com/questions/44912099/triangle-determine-if-an-array-includes-a-triangular-triplet-codility
+ */
 int solution(vector<int> &A) {
     int res(0);
     if (A.size() >= 3) {
+        sort(A.begin(), A.end());
         for (int i = 0; i < A.size() - 2; ++i) {
-            for (int j = i + 1; j < A.size() - 1; ++j) {
-                for (int k = j + 1; k < A.size(); ++k) {
-                    bool t1 = (long) A.at(i) + (long) A.at(j) > (long) A.at(k);
-                    bool t2 = (long) A.at(j) + (long) A.at(k) > (long) A.at(i);
-                    bool t3 = (long) A.at(k) + (long) A.at(i) > (long) A.at(j);
-                    if (t1 && t2 && t3) {
-                        res = 1;
-                        break;
-                    }
-                }
+            // To avoid overflow strike, the "A.at(i) > A.at(i + 2) - A.at(i + 1)"
+            // comparison is better than casting, it requires less memory
+            if (A.at(i) > A.at(i + 2) - A.at(i + 1)) {
+                res = 1;
+                break;
             }
         }
     }
@@ -49,26 +33,20 @@ int solution(vector<int> &A) {
 }
 
 int main() {
-    int myInts[]{10, 2, 5, 1, 8, 20};   //
-    int myInts1[]{10, 50, 5, 1};    //
-//    int myInts2[]{1, 1, 3, 5, 0};    //
-//    int myInts3[]{3, 1, 2, 2, 5, 6};    //
+    int myInts[]{10, 2, 5, 1, 8, 20};   //  1
+    int myInts1[]{10, 50, 5, 1};    //  0
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
-//    vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
-//    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
     display(solution(v));
     display(solution(v1));
-//    display(solution(v2));
-//    display(solution(v3));
 
     return 0;
 }
 /** Lesson 6
-3. NumberOfDiscIntersections : Compute the number of intersections in a sequence of discs.
-Task Score : 62%
+4. Triangle : Determine whether a triangle can be built from a given set of edges.
+Task Score : 100%
 Correctness : 100%
-Performance : 0%  O()
+Performance : 100%  O(N*log(N))
 Task description : https://app.codility.com/programmers/lessons/6-sorting/triangle/
  */
