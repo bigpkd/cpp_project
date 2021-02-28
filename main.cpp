@@ -31,63 +31,56 @@ void displayMap(std::map<T, U> map) {
     cout << endl;
 }
 
-int solution(string &S) {
-    stack<char> opening;
-    for (char character : S) {
-        switch (character) {
-            case '}':
-                if (opening.empty() || opening.top() != '{') return 0;
-                opening.pop();
-                break;
-            case ']':
-                if (opening.empty() || opening.top() != '[') return 0;
-                opening.pop();
-                break;
-            case ')':
-                if (opening.empty() || opening.top() != '(') return 0;
-                opening.pop();
-                break;
-            default:
-                opening.push(character);
-                break;
+int solution(vector<int> &A, vector<int> &B) {
+    stack<int> flowingDownstream;   // source -> mouth
+    size_t flowingUpstream(0);     // source <- mouth
+    for (size_t i = 0; i < B.size(); ++i) {
+        int direction = B.at(i);
+        if (direction == 1)
+            flowingDownstream.push(A.at(i));
+        else if (direction == 0) {
+            if (flowingDownstream.empty()) flowingUpstream++;
+            else {
+                int lastUpstreamFishSize = flowingDownstream.top();
+                while (lastUpstreamFishSize < A.at(i)) {
+                    flowingDownstream.pop();
+                    if (!flowingDownstream.empty()) {
+                        lastUpstreamFishSize = flowingDownstream.top();
+                    } else {
+                        flowingUpstream++;
+                        break;
+                    }
+                }
+            }
         }
     }
-    return opening.empty() ? 1 : 0;
+    return (int) (flowingUpstream + flowingDownstream.size());
 }
 
 int main() {
-    int myInts[]{10, 2, 5, 1, 8, 20};   //
-    int myInts1[]{10, 50, 5, 1};    //
-//    int myInts2[]{1, 1, 3, 5, 0};    //
+    int myInts[]{4, 3, 2, 1, 5};   //
+    int myInts1[]{0, 1, 0, 0, 0};    //
+    int myInts2[]{1, 1, 0, 0, 0};    //
 //    int myInts3[]{3, 1, 2, 2, 5, 6};    //
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
-//    vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
+    vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
 //    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-    string empty = "", s = "{[()()]}", s1 = "([)()]", s2 = ")(", s3 = "{{{{", s4;
-
-    display(solution(empty));
-    display(solution(s));
-    display(solution(s1));
-    display(solution(s2));
+    display(solution(v, v1));
+    display(solution(v, v2));
+//    display(solution(v2));
+//    display(solution(v4));
 //    display(solution(v3));
 
     return 0;
 }
-/** Lesson 7
-1. Brackets : Determine whether a given string of parentheses (multiple types) is properly nested.
-Task Score : 100%
-Correctness : 100%
-Performance : 100%  O(N)
-Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/brackets/
-*/
 
 /** Lesson 7
 2. Fish : N voracious fish are moving along a river. Calculate how many fish are alive. .
-Task Score : %
-Correctness : %
-Performance : 100%  O()
+Task Score : 100%
+Correctness : 100%
+Performance : 100%  O(N)
 Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/fish/
 */
 
