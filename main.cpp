@@ -32,35 +32,27 @@ void displayMap(std::map<T, U> map) {
 }
 
 int solution(string &S) {
-    if (S.empty())  return 1;
-    if (S.size() % 2 != 0)  return 0;
-    size_t startLeft = S.size() / 2 - 1;
-    size_t startRight = S.size() / 2;
-    map<char, char> symmetry = {{'}', '{'}, {']', '['}, {')', '('},
-                                {'{', '}'}, {'[', ']'}, {'(', ')'}};
-    int j(startRight);
-    for (int i = startLeft; i > -1; --i) {
-        if (S.at(i) != symmetry.at(S.at(j))) {
-            return 1;
+    stack<char> opening;
+    for (char character : S) {
+        switch (character) {
+            case '}':
+                if (opening.empty() || opening.top() != '{') return 0;
+                opening.pop();
+                break;
+            case ']':
+                if (opening.empty() || opening.top() != '[') return 0;
+                opening.pop();
+                break;
+            case ')':
+                if (opening.empty() || opening.top() != '(') return 0;
+                opening.pop();
+                break;
+            default:
+                opening.push(character);
+                break;
         }
-        --i;
-        ++j;
     }
-    return 0;
-/*    stack<char> opening;
-    stack<char> closingTmp;
-    stack<char> closing;
-    for (char border : S) {
-        if (border == '{' || border == '[' || border == '(')
-            opening.push(border);
-        else if (border == '}' || border == ']' || border == ')')
-            closingTmp.push(symmetry.at(border));
-    }
-    while (!closingTmp.empty()) {
-        closing.push(closingTmp.top());
-        closingTmp.pop();
-    }
-    return opening == closing;*/
+    return opening.empty() ? 1 : 0;
 }
 
 int main() {
@@ -85,9 +77,9 @@ int main() {
 }
 /** Lesson 7
 1. Brackets : Determine whether a given string of parentheses (multiple types) is properly nested.
-Task Score : %
-Correctness : %
-Performance : 100%  O()
+Task Score : 100%
+Correctness : 100%
+Performance : 100%  O(N)
 Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/brackets/
 */
 
