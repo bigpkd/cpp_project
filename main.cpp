@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <stack>
 #include <set>
 #include <algorithm>
 
@@ -30,24 +31,36 @@ void displayMap(std::map<T, U> map) {
     cout << endl;
 }
 
-int solution(vector<int> &A) {
-    int res(0);
-    if (A.size() >= 3) {
-        for (int i = 0; i < A.size() - 2; ++i) {
-            for (int j = i + 1; j < A.size() - 1; ++j) {
-                for (int k = j + 1; k < A.size(); ++k) {
-                    bool t1 = (long) A.at(i) + (long) A.at(j) > (long) A.at(k);
-                    bool t2 = (long) A.at(j) + (long) A.at(k) > (long) A.at(i);
-                    bool t3 = (long) A.at(k) + (long) A.at(i) > (long) A.at(j);
-                    if (t1 && t2 && t3) {
-                        res = 1;
-                        break;
-                    }
-                }
-            }
+int solution(string &S) {
+    if (S.empty())  return 1;
+    if (S.size() % 2 != 0)  return 0;
+    size_t startLeft = S.size() / 2 - 1;
+    size_t startRight = S.size() / 2;
+    map<char, char> symmetry = {{'}', '{'}, {']', '['}, {')', '('},
+                                {'{', '}'}, {'[', ']'}, {'(', ')'}};
+    int j(startRight);
+    for (int i = startLeft; i > -1; --i) {
+        if (S.at(i) != symmetry.at(S.at(j))) {
+            return 1;
         }
+        --i;
+        ++j;
     }
-    return res;
+    return 0;
+/*    stack<char> opening;
+    stack<char> closingTmp;
+    stack<char> closing;
+    for (char border : S) {
+        if (border == '{' || border == '[' || border == '(')
+            opening.push(border);
+        else if (border == '}' || border == ']' || border == ')')
+            closingTmp.push(symmetry.at(border));
+    }
+    while (!closingTmp.empty()) {
+        closing.push(closingTmp.top());
+        closingTmp.pop();
+    }
+    return opening == closing;*/
 }
 
 int main() {
@@ -60,19 +73,44 @@ int main() {
 //    vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
 //    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-    display(solution(v));
-    display(solution(v1));
-//    display(solution(v2));
+    string empty = "", s = "{[()()]}", s1 = "([)()]", s2 = ")(", s3 = "{{{{", s4;
+
+    display(solution(empty));
+    display(solution(s));
+    display(solution(s1));
+    display(solution(s2));
 //    display(solution(v3));
 
     return 0;
 }
-/** Lesson 6
-3. NumberOfDiscIntersections : Compute the number of intersections in a sequence of discs.
+/** Lesson 7
+1. Brackets : Determine whether a given string of parentheses (multiple types) is properly nested.
 Task Score : %
 Correctness : %
 Performance : 100%  O()
-Task description : https://app.codility.com/programmers/lessons/6-sorting/max_product_of_three/
+Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/brackets/
+*/
 
- http://www.lucainvernizzi.net/blog/2014/11/21/codility-beta-challenge-number-of-disc-intersections/
- */
+/** Lesson 7
+2. Fish : N voracious fish are moving along a river. Calculate how many fish are alive. .
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/fish/
+*/
+
+/** Lesson 7
+3. Nesting : Determine whether a given string of parentheses (multiple types) is properly nested.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/nesting/
+*/
+
+/** Lesson 7
+4. StoneWall : Cover "Manhattan skyline" using the minimum number of rectangles.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/
+*/
