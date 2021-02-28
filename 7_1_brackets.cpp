@@ -13,7 +13,7 @@ void display(T smth, Ts... smths) {
 
 int solution(string &S) {
     stack<char> opening;
-    for (char character : S) {
+    for (const char &character : S) {
         switch (character) {
             case '}':
                 if (opening.empty() || opening.top() != '{') return 0;
@@ -37,7 +37,7 @@ int solution(string &S) {
 
 int main() {
 
-    string empty = "";
+    string empty;
     string s = "{[()()]}";
     string s1 = "([)()]";
     string s2 = ")(";
