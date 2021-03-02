@@ -1,9 +1,10 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
 #include <map>
-#include <stack>
 #include <set>
-#include <algorithm>
+#include <stack>
+#include <climits>
 
 using namespace std;
 
@@ -35,7 +36,7 @@ int solution(vector<int> &H) {
     stack<int> s;
     set<int> existingHeights;
     size_t blocs(0);
-    s.push(static_cast<int>(2 * 10e9));
+    s.push(INT_MAX);
     for (int height : H) {
         int lastTop = s.top();
         if (lastTop > height) {
@@ -44,7 +45,16 @@ int solution(vector<int> &H) {
                 s.push(height);
             } else {
                 if (height != *existingHeights.begin()) {
-                    blocs++;
+                    stack<int> s_(s);
+                    bool add(true);
+                    while (s_.top() >= height && !s_.empty()) {
+                        if (s_.top() == height){
+                            add = false;
+                            break;
+                        }
+                        s_.pop();
+                    }
+                    if (add) blocs++;
                     s.push(height);
                 }
             }
@@ -61,7 +71,7 @@ int solution(vector<int> &H) {
 
 int main() {
     int myInts[]{8, 8, 5, 7, 9, 8, 7, 4, 8};   //
-    int myInts1[]{0, 8, 5, 7, 9, 8, 7, 4, 8};    //
+    int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    //
     int myInts2[]{8, 7, 7, 8, 9, 4, 5, 8, 8};    //
 //    int myInts3[]{3, 1, 2, 2, 5, 6};    //
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
