@@ -46,7 +46,6 @@ int solution_9(vector<int> &A) {  /** O(N*log(N)) */
 
 int solution(vector<int> &A) {  /** O(N) */
     stack<int> s;
-    s.push(INT_MAX);
     for (const int &val : A) {
         if (!s.empty() && s.top() != val)
             s.pop();
