@@ -66,14 +66,12 @@ int solution(vector<int> &A) {  /** O(N) */
 }
 
 int main() {
-    int myInts[]{4, 6, 6, 6, 6, 8, 8};   //
-    int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    //
-    int myInts2[]{8, 7, 7, 8, 9, 4, 5, 8, 8};    //
-//    int myInts3[]{3, 1, 2, 2, 5, 6};    //
+    int myInts[]{4, 6, 6, 6, 6, 8, 8};   // 6
+    int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    // -2147483648
+    int myInts2[]{8, 7, 7, 8, 9, 4, 5, 8, 8};    // -2147483648
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
-//    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
     display(solution(v));
     display(solution(v1));
@@ -82,7 +80,6 @@ int main() {
     display(solution_9(v));
     display(solution_9(v1));
     display(solution_9(v2));
-//    display(solution(v3));
 
     return 0;
 }
