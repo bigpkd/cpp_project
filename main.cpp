@@ -34,43 +34,21 @@ void displayMap(std::map<T, U> map) {
 
 int solution(vector<int> &H) {
     stack<int> s;
-    set<int> existingHeights;
-    size_t blocs(0);
-    s.push(INT_MAX);
-    for (int height : H) {
-        int lastTop = s.top();
-        if (lastTop > height) {
-            if (existingHeights.find(height) == existingHeights.end()) {
-                blocs++;
-                s.push(height);
-            } else {
-                if (height != *existingHeights.begin()) {
-                    stack<int> s_(s);
-                    bool add(true);
-                    while (s_.top() >= height && !s_.empty()) {
-                        if (s_.top() == height){
-                            add = false;
-                            break;
-                        }
-                        s_.pop();
-                    }
-                    if (add) blocs++;
-                    s.push(height);
-                }
-            }
-        } else if (lastTop < height) {
-            blocs++;
-            s.push(height);
-        } else if (lastTop == height) {
-            continue;
+    size_t blocks(0);
+    for (const int &height : H) {
+        while (!s.empty() && s.top() > height) {
+            s.pop();
         }
-        existingHeights.emplace(height);
+        if (s.empty() || s.top() < height) {
+            blocks++;
+            s.push(height);
+        }
     }
-    return blocs;
+    return blocks;
 }
 
 int main() {
-    int myInts[]{8, 8, 5, 7, 9, 8, 7, 4, 8};   //
+    int myInts[]{4, 6, 6, 6, 6, 8, 8};   //
     int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    //
     int myInts2[]{8, 7, 7, 8, 9, 4, 5, 8, 8};    //
 //    int myInts3[]{3, 1, 2, 2, 5, 6};    //
@@ -88,10 +66,18 @@ int main() {
     return 0;
 }
 
-/** Lesson 7
-4. StoneWall : Cover "Manhattan skyline" using the minimum number of rectangles.
+/** Lesson 8
+1. Dominator : Find an index of an array such that its value occurs at more than half of indices in the array.
 Task Score : %
 Correctness : %
 Performance : 100%  O()
-Task description : https://app.codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/
+Task description : https://app.codility.com/programmers/lessons/8-leader/dominator/
+*/
+
+/** Lesson 8
+2. EquiLeader : Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/8-leader/equi_leader/
 */
