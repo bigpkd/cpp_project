@@ -34,24 +34,24 @@ void displayMap(std::map<T, U> map) {
 
 int solution(vector<int> &A) {
     stack<int> s;
-    s.push(-1);
     for (const int &val : A) {
-        if (!s.empty() && s.top() != val)
-            s.pop();
-        else
+        if (s.empty() || s.top() == val)
             s.push(val);
+        else
+            s.pop();
     }
-    // verification (necessary in the case of leader identification)
-    if (s.empty()) cout << "empty\n";
-    cout << s.top() << endl;
-    int candidate (s.top());
-    size_t count(0);
-    for (const int &val : A) {
-        if (candidate == val) count++;
+    int dominatorIndex(-1);
+    // verification
+    if (!s.empty()) {
+        int dominator(s.top());
+        vector<size_t> candidates;
+        for (size_t i(0); i < A.size(); i++) {
+            if (dominator == A.at(i))
+                candidates.push_back(i);
+        }
+        if (candidates.size() > A.size() / 2) dominatorIndex = candidates.at(0);
     }
-    if (count <= A.size() / 2) return -1;
-    cout << count << " - " << endl;
-    return s.top();
+    return dominatorIndex;
 }
 
 int main() {
@@ -64,10 +64,9 @@ int main() {
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
 //    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-//    display(solution(v));
+    display(solution(v));
     display(solution(v1));
-
-//    display(solution(v4));
+    display(solution(v2));
 //    display(solution(v3));
 
     return 0;
@@ -75,9 +74,9 @@ int main() {
 
 /** Lesson 8
 1. Dominator : Find an index of an array such that its value occurs at more than half of indices in the array.
-Task Score : %
-Correctness : %
-Performance : 100%  O()
+Task Score : 100%
+Correctness : 100%
+Performance : 100%  O(N*log(N)) or O(N)
 Task description : https://app.codility.com/programmers/lessons/8-leader/dominator/
 */
 
