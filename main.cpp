@@ -32,37 +32,53 @@ void displayMap(std::map<T, U> map) {
     cout << endl;
 }
 
-int solution(vector<int> &A) {
+int findLeader(size_t start, size_t end, vector<int>& A) {
     stack<int> s;
-    for (const int &val : A) {
-        if (s.empty() || s.top() == val)
-            s.push(val);
-        else
-            s.pop();
+//    s.push(INT_MAX);
+    s.push(A.at(start));
+    for (size_t i = start; i < end + 1; ++i) {
+        if (s.empty() || s.top() == A.at(i)) s.push(A.at(i));
+        else s.pop();
     }
-    int dominatorIndex(-1);
-    // verification
-    if (!s.empty()) {
-        int dominator(s.top());
-        vector<size_t> candidates;
-        for (size_t i(0); i < A.size(); i++) {
-            if (dominator == A.at(i))
-                candidates.push_back(i);
+    int leader(INT_MIN);
+    if (!s.empty()){
+        size_t count(0);
+        for (size_t i = start; i < end + 1; ++i)
+            if (s.top() == A.at(i)) count++;
+        if (count > (end - start + 1) / 2) leader = s.top();
+    }
+    return leader;
+}
+
+int solution(vector<int> &A) {
+    vector<size_t> equiLeaders;
+    for (size_t i = 0; i < A.size() - 1; ++i) {
+        int leftLeader = findLeader(0, i, A);
+        int rightLeader = findLeader(i + 1, A.size() - 1, A);
+        if (leftLeader != INT_MIN && rightLeader != INT_MIN) {
+            if (leftLeader == rightLeader)
+                equiLeaders.push_back(i);
         }
-        if (candidates.size() > A.size() / 2) dominatorIndex = candidates.at(0);
     }
-    return dominatorIndex;
+    return equiLeaders.size();
 }
 
 int main() {
-    int myInts[]{4, 6, 6, 6, 6, 8, 8};   //
+    int myInts[]{4, 3, 4, 4, 4, 2};   //
     int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    //
-    int myInts2[]{8, 7, 7, 8, 9, 4, 5, 8, 8};    //
+    int myInts2[]{4, 6, 6, 6, 6, 8, 8};    //
 //    int myInts3[]{3, 1, 2, 2, 5, 6};    //
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
 //    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
+
+    display(findLeader(0, 0, v));
+    display(findLeader(1, 5, v));
+    display(findLeader(0, 2, v));
+    display(findLeader(3, 5, v));
+
+    cout << endl;
 
     display(solution(v));
     display(solution(v1));
