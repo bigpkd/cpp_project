@@ -34,8 +34,6 @@ void displayMap(std::map<T, U> map) {
 
 int findLeader(size_t start, size_t end, vector<int>& A) {
     stack<int> s;
-//    s.push(INT_MAX);
-    s.push(A.at(start));
     for (size_t i = start; i < end + 1; ++i) {
         if (s.empty() || s.top() == A.at(i)) s.push(A.at(i));
         else s.pop();
@@ -73,28 +71,20 @@ int main() {
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
 //    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-    display(findLeader(0, 0, v));
-    display(findLeader(1, 5, v));
-    display(findLeader(0, 2, v));
-    display(findLeader(3, 5, v));
-
-    cout << endl;
-
     display(solution(v));
     display(solution(v1));
     display(solution(v2));
 //    display(solution(v3));
 
+    cout << endl;
+
+    display(findLeader(0, 0, v));
+    display(findLeader(1, 5, v));
+    display(findLeader(0, 2, v));
+    display(findLeader(3, 5, v));
+
     return 0;
 }
-
-/** Lesson 8
-1. Dominator : Find an index of an array such that its value occurs at more than half of indices in the array.
-Task Score : 100%
-Correctness : 100%
-Performance : 100%  O(N*log(N)) or O(N)
-Task description : https://app.codility.com/programmers/lessons/8-leader/dominator/
-*/
 
 /** Lesson 8
 2. EquiLeader : Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same.
