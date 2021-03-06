@@ -78,6 +78,10 @@ int main() {
     display(solution(v));
     display(solution(v1));
     display(solution(v2));
+
+    display(solution_9(v));
+    display(solution_9(v1));
+    display(solution_9(v2));
 //    display(solution(v3));
 
     return 0;
