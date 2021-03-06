@@ -32,19 +32,26 @@ void displayMap(std::map<T, U> map) {
     cout << endl;
 }
 
-int solution(vector<int> &H) {
+int solution(vector<int> &A) {
     stack<int> s;
-    size_t blocks(0);
-    for (const int &height : H) {
-        while (!s.empty() && s.top() > height) {
+    s.push(-1);
+    for (const int &val : A) {
+        if (!s.empty() && s.top() != val)
             s.pop();
-        }
-        if (s.empty() || s.top() < height) {
-            blocks++;
-            s.push(height);
-        }
+        else
+            s.push(val);
     }
-    return blocks;
+    // verification (necessary in the case of leader identification)
+    if (s.empty()) cout << "empty\n";
+    cout << s.top() << endl;
+    int candidate (s.top());
+    size_t count(0);
+    for (const int &val : A) {
+        if (candidate == val) count++;
+    }
+    if (count <= A.size() / 2) return -1;
+    cout << count << " - " << endl;
+    return s.top();
 }
 
 int main() {
@@ -57,9 +64,9 @@ int main() {
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
 //    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-    display(solution(v));
+//    display(solution(v));
     display(solution(v1));
-    display(solution(v2));
+
 //    display(solution(v4));
 //    display(solution(v3));
 
