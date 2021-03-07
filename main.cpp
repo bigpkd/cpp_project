@@ -32,52 +32,40 @@ void displayMap(std::map<T, U> map) {
     cout << endl;
 }
 
-int findLeader(vector<int> &A) {
-    stack<int> s;
-    for (const int &val : A) {
-        if (!s.empty() && s.top() != val)
-            s.pop();
-        else
-            s.push(val);
+int slow_max_slice(vector<int> &A) {  /** O(N^3) */
+    int res(0);
+    for (size_t p = 0; p < A.size(); ++p) {
+        for (size_t q = p; q < A.size(); ++q) {
+            int sum(0);
+            for (size_t i = p; i < q + 1; ++i) {
+                sum += A.at(i);
+            }
+            res = max(res, sum);
+        }
     }
-    // verification (necessary in the case of leader identification)
-    int leader(INT_MIN);
-    if (!s.empty()) {
-        int candidate = s.top();
-        size_t count(0);
-        for (const int &val : A)
-            if (candidate == val) count++;
-        if (count > A.size() / 2) leader = candidate;
-    }
-    return leader;
+    return res;
+}
+int quadratic_max_slice_1(vector<int> &A) {  /** O(N²) */
+
+}
+int quadratic_max_slice_2(vector<int> &A) {  /** O(N²) */
+
+}
+int golden_max_slice(vector<int> &A) {  /** O(N) */
+
 }
 
 int solution(vector<int> &A) {
-    int leader = findLeader(A);     // There can only be one leader in a sequence
-    if (leader == INT_MIN) return 0;   // No leader
-    vector<size_t> indexesWithLeaderOnTheLeft;
-    vector<size_t> leaderInstancesCounts;
-    size_t count(0);
-    for (size_t i = 0; i < A.size(); ++i) {
-        if (A.at(i) == leader) count++;
-        if (count > (i + 1) / 2) indexesWithLeaderOnTheLeft.push_back(i);
-        leaderInstancesCounts.push_back(count);
-    }
-    size_t equiLeadersCount(0);
-    for (size_t i = 0; i < indexesWithLeaderOnTheLeft.size(); ++i) {
-        size_t &equiLeaderCandidate = indexesWithLeaderOnTheLeft.at(i);
-        size_t rightRangeSize = A.size() - (equiLeaderCandidate + 1);
-        size_t leaderCountOnTheRight =
-                leaderInstancesCounts.at(A.size() - 1)
-                - leaderInstancesCounts.at(equiLeaderCandidate);
-        // if right range has a leader then equiLeaderCandidate is equiLeader
-        if (leaderCountOnTheRight > rightRangeSize / 2) equiLeadersCount++;
-    }
-    return equiLeadersCount;
+    int res = INT16_MAX;
+    res = slow_max_slice(A);
+//    res = quadratic_max_slice_1(A);
+//    res = quadratic_max_slice_2(A);
+//    res = golden_max_slice(A);
+    return res;
 }
 
 int main() {
-    int myInts[]{5, -7, 3, 5, -2, 4, 1};   //    2
+    int myInts[]{5, -7, 3, 5, -2, 4, -1};   //    2
     int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    //
     int myInts2[]{4, 6, 6, 6, 6, 8, 8};    //
 //    int myInts3[]{3, 1, 2, 2, 5, 6};    //
