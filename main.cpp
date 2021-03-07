@@ -32,7 +32,27 @@ void displayMap(std::map<T, U> map) {
     cout << endl;
 }
 
-int findLeader(size_t start, size_t end, vector<int>& A) {
+int findLeader_(vector<int> &A) {
+    stack<int> s;
+    for (const int &val : A) {
+        if (!s.empty() && s.top() != val)
+            s.pop();
+        else
+            s.push(val);
+    }
+    // verification (necessary in the case of leader identification)
+    int leader(INT_MIN);
+    if (!s.empty()) {
+        int candidate = s.top();
+        size_t count(0);
+        for (const int &val : A)
+            if (candidate == val) count++;
+        if (count > A.size() / 2) leader = candidate;
+    }
+    return leader;
+}
+
+int findLeaderOfRange(size_t start, size_t end, vector<int>& A) {
     stack<int> s;
     for (size_t i = start; i < end + 1; ++i) {
         if (s.empty() || s.top() == A.at(i)) s.push(A.at(i));
@@ -50,19 +70,37 @@ int findLeader(size_t start, size_t end, vector<int>& A) {
 
 int solution(vector<int> &A) {
     vector<size_t> equiLeaders;
-    for (size_t i = 0; i < A.size() - 1; ++i) {
-        int leftLeader = findLeader(0, i, A);
-        int rightLeader = findLeader(i + 1, A.size() - 1, A);
+    vector<size_t> indexesWithLeaderOnTheLeft;
+    vector<size_t> leaderInstancesCounts;
+    int leader = findLeader_(A);
+//    if (leader == INT_MIN) return 0;
+    size_t count(0);
+    for (size_t i = 0; i < A.size()/* - 1*/; ++i) {
+        if (A.at(i) == leader) count++;
+        if (count > (i + 1) / 2) indexesWithLeaderOnTheLeft.push_back(i);
+        leaderInstancesCounts.push_back(count);
+    }
+    for (size_t i = 0; i < indexesWithLeaderOnTheLeft.size()/* - 1*/; ++i) {
+        unsigned int &equiLeaderCandidate = indexesWithLeaderOnTheLeft.at(i);
+        size_t rightRangeSize = A.size() - equiLeaderCandidate;
+        size_t leaderCountOnTheRight =
+                leaderInstancesCounts.at(A.size()-1)
+                - leaderInstancesCounts.at(equiLeaderCandidate);
+        if (leaderCountOnTheRight > rightRangeSize / 2) equiLeaders.push_back(equiLeaderCandidate);
+    }
+/*    for (size_t i = 0; i < A.size() - 1; ++i) {
+        int leftLeader = findLeaderOfRange(0, i, A);
+        int rightLeader = findLeaderOfRange(i + 1, A.size() - 1, A);
         if (leftLeader != INT_MIN && rightLeader != INT_MIN) {
             if (leftLeader == rightLeader)
-                equiLeaders.push_back(i);
+                indexesWithLeaderOnTheLeft.push_back(i);
         }
-    }
+    }*/
     return equiLeaders.size();
 }
 
 int main() {
-    int myInts[]{4, 3, 4, 4, 4, 2};   //
+    int myInts[]{4, 3, 4, 4, 4, 2};   //    2
     int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    //
     int myInts2[]{4, 6, 6, 6, 6, 8, 8};    //
 //    int myInts3[]{3, 1, 2, 2, 5, 6};    //
@@ -72,16 +110,16 @@ int main() {
 //    vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
     display(solution(v));
-    display(solution(v1));
-    display(solution(v2));
+//    display(solution(v1));
+//    display(solution(v2));
 //    display(solution(v3));
 
     cout << endl;
 
-    display(findLeader(0, 0, v));
-    display(findLeader(1, 5, v));
-    display(findLeader(0, 2, v));
-    display(findLeader(3, 5, v));
+//    display(findLeaderOfRange(0, 0, v));
+//    display(findLeaderOfRange(1, 5, v));
+//    display(findLeaderOfRange(0, 2, v));
+//    display(findLeaderOfRange(3, 5, v));
 
     return 0;
 }
