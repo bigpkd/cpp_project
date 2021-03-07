@@ -77,7 +77,7 @@ int solution(vector<int> &A) {
 }
 
 int main() {
-    int myInts[]{4, 3, 4, 4, 4, 2};   //    2
+    int myInts[]{5, -7, 3, 5, -2, 4, 1};   //    2
     int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};    //
     int myInts2[]{4, 6, 6, 6, 6, 8, 8};    //
 //    int myInts3[]{3, 1, 2, 2, 5, 6};    //
@@ -94,10 +94,34 @@ int main() {
     return 0;
 }
 
-/** Lesson 8
-2. EquiLeader : Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same.
+/** Lesson 9
+0. Maximum slice problem : given a sequence of n integers a0, a1, . . . , an−1, find the slice with the
+ largest sum. More precisely, we are looking for two indices p, q such that the total ap+ ap+1+ . . . + aq is maximal.
+ We assume that the slice can be empty and its sum equals 0.
+
+ Task description : https://codility.com/media/train/7-MaxSlice.pdf
+*/
+
+/** Lesson 9
+1. MaxDoubleSliceSum : Find the maximal sum of any double slice.
 Task Score : %
 Correctness : %
 Performance : 100%  O()
-Task description : https://app.codility.com/programmers/lessons/8-leader/equi_leader/
+Task description : https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/
+*/
+
+/** Lesson 9
+2. MaxProfit : Given a log of stock prices compute the maximum possible earning.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_profit/
+*/
+
+/** Lesson 9
+3. MaxSliceSum : Find a maximum sum of a compact subsequence of array elements.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_slice_sum/
 */
