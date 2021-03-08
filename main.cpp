@@ -50,22 +50,20 @@ int solution_9(vector<int> &A) {
     }
     return res;
 }
-
+// https://rafal.io/posts/codility-max-double-slice-sum.html
 int solution(vector<int> &A) {
     if (A.size() < 3) return 0;
-    vector<int> prefixSums(A.begin(), A.end());
-    for (size_t p = 1; p < A.size(); ++p) {
-        prefixSums.at(p) = prefixSums.at(p - 1) + prefixSums.at(p);
+    vector<int> left(A.size());
+    vector<int> right(A.size());
+    for (size_t i = 1; i < A.size() - 1; ++i) {
+        left.at(i) = max(0, left.at(i - 1) + A.at(i));
+    }
+    for (size_t i = A.size() - 2; i > 0; --i) {
+        right.at(i) = max(0, right.at(i + 1) + A.at(i));
     }
     int res(0);
-    for (size_t p = 0; p < A.size() - 2; ++p) {
-        for (size_t q = p + 2; q < A.size(); ++q) {
-            for (size_t i = p + 1; i < q; ++i) {
-                int leftSum = prefixSums.at(i - 1) - prefixSums.at(p);
-                int rightSum = prefixSums.at(q - 1) - prefixSums.at(i);
-                res = max(res, leftSum + rightSum);
-            }
-        }
+    for (size_t i = 1; i < A.size() - 1; ++i) {
+        res = max(res, left.at(i - 1) + right.at(i + 1));
     }
     return res;
 }
@@ -88,22 +86,6 @@ int main() {
 
     return 0;
 }
-
-/** Lesson 9
-0. MaximumSlice : given a sequence of n integers a_0, a_1, . . . , a_n−1, find the slice with the
- largest sum. More precisely, we are looking for two indices p, q such that the total a_p+ a_p+1+ . . . + a_q is maximal.
- We assume that the slice can be empty and its sum equals 0.
-
- Task description : https://codility.com/media/train/7-MaxSlice.pdf
-*/
-
-/** Lesson 9
-1. MaxDoubleSliceSum : Find the maximal sum of any double slice.
-Task Score : %
-Correctness : %
-Performance : 100%  O()
-Task description : https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/
-*/
 
 /** Lesson 9
 2. MaxProfit : Given a log of stock prices compute the maximum possible earning.
