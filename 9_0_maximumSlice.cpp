@@ -26,15 +26,15 @@ int slow_max_slice(vector<int> &A) {  /** O(N^3), analyze all slices */
     return res;
 }
 int quadratic_max_slice_1(vector<int> &A) {  /** O(N²), use prefix sums */
-    vector<int> prefixSum(A.size() + 1);
+    vector<int> prefixSums(A.size() + 1);
     for (size_t p = 1; p < A.size() + 1; ++p) {
-        prefixSum.at(p) = A.at(p - 1);
-        prefixSum.at(p) = prefixSum.at(p - 1) + prefixSum.at(p);
+        prefixSums.at(p) = A.at(p - 1);
+        prefixSums.at(p) = prefixSums.at(p - 1) + prefixSums.at(p);
     }
     int res(0);
     for (size_t p = 0; p < A.size(); ++p) {
         for (size_t q = p; q < A.size(); ++q) {
-            int sum(prefixSum.at(q + 1) - prefixSum.at(p));
+            int sum(prefixSums.at(q + 1) - prefixSums.at(p));
             res = max(res, sum);
         }
     }
