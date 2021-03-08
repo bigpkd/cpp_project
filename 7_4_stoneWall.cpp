@@ -11,7 +11,7 @@ void display(T smth, Ts... smths) {
     display(smths...);
 }
 
-int solution(vector<int> &H) {
+int solution(vector<int> &H) { // https://codility.com/media/train/solution-stone-wall.pdf
     stack<int> s;
     size_t blocks(0);
     for (const int &height : H) {
