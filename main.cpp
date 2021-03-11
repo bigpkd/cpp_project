@@ -33,12 +33,17 @@ void displayMap(std::map<T, U> map) {
 }
 
 int solution(vector<int> &A) {
-    int res(0), maxEnding(0);
-    for (const int &value : A) {
-        maxEnding = max(0, maxEnding + value);
-        res = max(res, maxEnding);
+    vector<int> increasing(A.begin(), A.end());
+    sort(increasing.begin(), increasing.end());
+    vector<int> decreasing(increasing.rbegin(), increasing.rend());
+    auto itMin = find(A.begin(), A.end(), increasing.front());
+    auto itMax = find(A.begin(), A.end(), increasing.back());
+    display(itMin.operator*());
+    display(itMax.operator*());
+    if (itMin - itMax > 0) {
+        display(itMax.operator*());
     }
-    return res;
+    return 0;
 }
 
 int main() {
@@ -52,9 +57,9 @@ int main() {
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
     vector<int> v3(myInts3, myInts3 + sizeof(myInts3) / sizeof(int));
 
-    display(solution(v));
-    display(solution(v1));
-    display(solution(v2));
+//    display(solution(v));
+//    display(solution(v1));
+//    display(solution(v2));
     display(solution(v3));
 
     return 0;
