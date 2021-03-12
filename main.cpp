@@ -33,17 +33,13 @@ void displayMap(std::map<T, U> map) {
 }
 
 int solution(vector<int> &A) {
-    vector<int> increasing(A.begin(), A.end());
-    sort(increasing.begin(), increasing.end());
-    vector<int> decreasing(increasing.rbegin(), increasing.rend());
-    auto itMin = find(A.begin(), A.end(), increasing.front());
-    auto itMax = find(A.begin(), A.end(), increasing.back());
-    display(itMin.operator*());
-    display(itMax.operator*());
-    if (itMin - itMax > 0) {
-        display(itMax.operator*());
+    int res(0);
+    for (size_t i = 0; i < A.size(); ++i) {
+        for (size_t j = 0; j < i; ++j) {
+            res = max(res, max(0, A.at(i) - A.at(j)));
+        }
     }
-    return 0;
+    return res;
 }
 
 int main() {
@@ -60,7 +56,7 @@ int main() {
 //    display(solution(v));
 //    display(solution(v1));
 //    display(solution(v2));
-    display(solution(v3));
+//    display(solution(v3));
 
     return 0;
 }
