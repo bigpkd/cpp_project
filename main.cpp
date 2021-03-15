@@ -33,23 +33,19 @@ void displayMap(std::map<T, U> map) {
 }
 
 int solution(vector<int> &A) {
-    int maxProfit(0);
-    int minPrice(A.empty() ? 0 : A.front());
-    int maxProfitOnThatDay(0);
-    for (int &priceOfTheDay : A) {
-        minPrice = min(minPrice, priceOfTheDay);
-        maxProfitOnThatDay = max(0, priceOfTheDay - minPrice); // The function should return 0 if it was impossible to gain any profit.
-        maxProfit = max(maxProfit, maxProfitOnThatDay);
+    int maxEnding(0), maxSlice(INT_MIN);
+    for (const int &value : A) {
+        maxEnding = (maxEnding < 0 && value >= maxEnding) ? value : maxEnding + value;
+        maxSlice = max(maxSlice, maxEnding);
     }
-    return maxProfit;
+    return maxSlice;
 }
 
 int main() {
-    int myInts[]{3, 2, 6, -1, 4, 5, -1, 2};     //  6
-    int myInts1[]{8, 8, 5, 7, 9, 8, 7, 4, 8};   //  4
-    int myInts2[]{4, 6, 6, 6, 6, 8, 8};         //  4
-    int myInts3[]{23171, 21011, 21123, 21366, 21013, 21367};    //   0
-//    int myInts3[]{0, 10, -5, -2, 0};    //    10
+    int myInts[]{3, 2, -6, 4, 0};     //  5
+    int myInts1[]{-10};   //  -10
+    int myInts2[]{-2, 1};         //  1
+    int myInts3[]{-5, -3, -1};    //   -1
     vector<int> v(myInts, myInts + sizeof(myInts) / sizeof(int));
     vector<int> v1(myInts1, myInts1 + sizeof(myInts1) / sizeof(int));
     vector<int> v2(myInts2, myInts2 + sizeof(myInts2) / sizeof(int));
@@ -63,18 +59,52 @@ int main() {
     return 0;
 }
 
-/** Lesson 9
-2. MaxProfit : Given a log of stock prices compute the maximum possible earning.
-Task Score : 100%
-Correctness : 100%
-Performance : 100%  O(N)
-Task description : https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_profit/
+/** Lesson 10
+0.1. Counting divisors : .
+
+ Task description : https://codility.com/media/train/8-PrimeNumbers.pdf
 */
 
-/** Lesson 9
-3. MaxSliceSum : Find a maximum sum of a compact subsequence of array elements.
+/** Lesson 10
+0.2. Primality test : .
+
+ Task description : https://codility.com/media/train/8-PrimeNumbers.pdf
+*/
+
+/** Lesson 10
+0.3. Exercise : .
+
+ Task description : https://codility.com/media/train/8-PrimeNumbers.pdf
+*/
+
+/** Lesson 10
+1. CountFactors : Count factors of given number n.
 Task Score : %
 Correctness : %
 Performance : 100%  O()
-Task description : https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_slice_sum/
+Task description : https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/count_factors/
+*/
+
+/** Lesson 10
+2. Flags : Find the maximum number of flags that can be set on mountain peaks.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/flags/
+*/
+
+/** Lesson 10
+3. MinPerimeterRectangle : Find the minimal perimeter of any rectangle whose area equals N.
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/min_perimeter_rectangle/
+*/
+
+/** Lesson 10
+4. Peaks : Divide an array into the maximum number of same-sized blocks, each of which should contain an index P such that A[P - 1] < A[P] > A[P + 1].
+Task Score : %
+Correctness : %
+Performance : 100%  O()
+Task description : https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/peaks/
 */
