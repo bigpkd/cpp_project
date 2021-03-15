@@ -1,6 +1,6 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
 #include <map>
 #include <set>
 #include <stack>
@@ -45,7 +45,7 @@ int countDivisors(int n) {
     return divisors;
 }
 
-int countDivisors_1(int n) {
+int count_divisors(int n) {
     int divisors(0);
     int i(1);
     while (i * i < n) {
@@ -63,8 +63,8 @@ bool isPrime(int n) {
     return true;
 }
 
-int countTailCoins(int n) {
-    vector<bool> coins(n + 1, 0);
+int countTails(int n) {
+    vector<bool> coins(n + 1, false);
     int tails(0);
     for (size_t i = 1; i < coins.size(); ++i) {
         for (size_t j = i; j <= n; j += i) {    // can we say j < n + 1
@@ -90,26 +90,35 @@ int coins(int n) {
     return res;
 }
 
+int golden_tails_count(int n) {
+    return (int) floor(sqrt(n));
+}
+
 int main() {
 //    display(countDivisors(36));   // 9
 //    display(countDivisors(25));   // 3
 //    display(countDivisors(24));   // 8
 //    display(countDivisors(81));   // 5
 //
-    display(isPrime(36));   // 0
-    display(isPrime(25));   // 1
-    display(isPrime(24));   // 0
-    display(isPrime(81));   // 0
+//    display(isPrime(36));   // 0
+//    display(isPrime(25));   // 1
+//    display(isPrime(24));   // 0
+//    display(isPrime(81));   // 0
 
-    display(coins(36));   // 0
-    display(coins(25));   // 1
-    display(coins(24));   // 0
-    display(coins(81));   // 0
-
-//    display(countTailCoins(36));   // 0
-//    display(countTailCoins(25));   // 1
-//    display(countTailCoins(24));   // 0
-//    display(countTailCoins(81));   // 0
+//    display(coins(36));   // 6
+//    display(coins(25));   // 5
+//    display(coins(24));   // 4
+//    display(coins(81));   // 9
+//
+    display(countTails(36));   // 6
+    display(countTails(25));   // 5
+    display(countTails(24));   // 4
+    display(countTails(81));   // 9
+    display();
+    display(golden_tails_count(36));   // 6
+    display(golden_tails_count(25));   // 5
+    display(golden_tails_count(24));   // 4
+    display(golden_tails_count(81));   // 9
 
     int myInts[]{3, 2, -6, 4, 0};   //  5
     int myInts1[]{-10};             //  -10
