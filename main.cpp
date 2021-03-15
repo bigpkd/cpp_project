@@ -43,22 +43,28 @@ int solution(int N) {
 }
 
 int main() {
-    display(solution(36));   // 9
-    display(solution(25));   // 3
-    display(solution(24));   // 8
-    display(solution(81));   // 5
-    display(solution(INT_MAX));   // 2
+//    display(solution(36));   // 9
+//    display(solution(25));   // 3
+//    display(solution(24));   // 8
+//    display(solution(81));   // 5
+//    display(solution(INT_MAX));   // 2
+
+    int m(1), n(2);
+    long p(3), q(4);
+//    display(typeid(m / n).name());
+//    display(typeid(m / q).name());
+//    display(typeid(p / n).name());
+//    display(typeid(p / q).name());
+//    display(typeid(p / (float) q).name());
+
+    display(typeid(m % n).name());
+    display(typeid(m % q).name());
+    display(typeid(p % n).name());
+    display(typeid(p % q).name());
+    display(typeid(p % m).name());
 
     return 0;
 }
-
-/** Lesson 10
-1. CountFactors : Count factors of given number n.
-Task Score : 100%
-Correctness : 100%
-Performance : 100%  O(√N)
-Task description : https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/count_factors/
-*/
 
 /** Lesson 10
 2. Flags : Find the maximum number of flags that can be set on mountain peaks.
