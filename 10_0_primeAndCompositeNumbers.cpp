@@ -39,7 +39,7 @@ bool isPrime(int n) {  /** O(√n) */
     return true;
 }
 
-int countTails(int n) {  /** O(n*log n) */
+int countTails(int n) {  /** O(n log n) */
     vector<bool> coins(n + 1, 0);
     int tails(0);
     for (size_t i = 1; i < coins.size(); ++i) {
@@ -52,7 +52,7 @@ int countTails(int n) {  /** O(n*log n) */
     return tails;
 }
 
-int coins(int n) {  /** O(n*log n) */
+int coins(int n) {  /** O(n log n) */
     int res(0);
     vector<bool> coins(n + 1, false);
     for (size_t i = 1; i < n + 1; ++i) {
